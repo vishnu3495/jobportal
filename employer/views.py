@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView,CreateView,DeleteView,UpdateView,DetailView,TemplateView,FormView
-from employer.forms import JobForm
+from employer.forms import JobForm,PasswordResetForm
 from employer.models import Jobs
 
 from employer.forms import SignUpForm,LoginForm
@@ -92,6 +92,7 @@ class ChangePasswordView(TemplateView):
             return render(request,self.template_name)
 
 class PasswordResetView(TemplateView):
+    # form_class = PasswordResetForm
     template_name = "passwordreset.html"
     def post(self,request,*args,**kwargs):
         pwd1=request.POST.get("pwd1")
