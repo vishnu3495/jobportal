@@ -1,0 +1,25 @@
+{%extends 'base.html'%}
+{%block body_block%}
+<div class="row">
+    <div class="col-3"></div>
+    <div class="col-6">
+        <div class="card text-center">
+  <div class="card-header">
+    {{job.job_title}}
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">COMPANY:{{job.company_name}}</h5>
+    <p class="card-text">LOCATION:{{job.location}}</p>
+     <p class="card-text">SALARY:{{job.salary}}</p>
+      <p class="card-text">EXPERIENCE:{{job.experience}}</p>
+  </div>
+  <div class="card-footer text-muted">
+    2 days ago
+  </div>
+</div>
+    </div>
+    <div class="col-3"></div>
+
+</div>
+
+{%endblock%}
