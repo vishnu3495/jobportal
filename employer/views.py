@@ -2,9 +2,9 @@ from django.shortcuts import render,redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView,CreateView,DeleteView,UpdateView,DetailView,TemplateView,FormView
 from employer.forms import JobForm,PasswordResetForm
-from employer.models import Jobs
+from employer.models import Jobs,CompanyProfile
 
-from employer.forms import SignUpForm,LoginForm
+from employer.forms import SignUpForm,LoginForm,CompanyProfileForm
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
 
@@ -41,12 +41,6 @@ class JobEditView(UpdateView):
     success_url = reverse_lazy("emp-alljobs")
     pk_url_kwarg = "id"
 
-
-# class JobDeleteView(View):
-#     def get(self,request,id):
-#         qs=Jobs.objects.get(id=id)
-#         qs.delete()
-#         return redirect("emp-alljobs")
 
 class JobDeleteView(DeleteView):
     model = Jobs
@@ -104,3 +98,23 @@ class PasswordResetView(TemplateView):
             u.set_password(pwd1)
             u.save()
             return redirect('signin')
+
+class CompanyProfileView(CreateView):
+    model = CompanyProfile
+    form_class = CompanyProfileForm
+    template_name = "emp-addprofile.html"
+    success_url = reverse_lazy("emp-home")
+
+    def form_valid(self, form):
+        form.instance.user=self.request.user
+        return super().form_valid(form)
+
+class EmpViewProfileView(TemplateView):
+    template_name = "emp-profile.html"
+
+class EmpProfileEditView(UpdateView):
+    model = CompanyProfile
+    form_class = CompanyProfileForm
+    template_name = "emp-editprofile.html"
+    success_url = reverse_lazy("emp-viewprofile")
+    pk_url_kwarg = "id"
