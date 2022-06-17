@@ -19,11 +19,20 @@ class AddJobView(CreateView):
     template_name = "emp-addjob.html"
     success_url = reverse_lazy("emp-alljobs")
 
+    def form_valid(self, form):
+        form.instance.company=self.request.user
+        return super().form_valid(form)
+
 
 class ListJobView(ListView):
     model = Jobs
     context_object_name = "jobs"
     template_name = "emp-listjob.html"
+    def get_queryset(self):
+        return Jobs.objects.filter(company=self.request.user)
+    # def get(self,request):
+    #     res=Jobs.objects.filter(company=request.user)
+    #     return render(request,self.template_name,{'jobs':res})
 
 
 

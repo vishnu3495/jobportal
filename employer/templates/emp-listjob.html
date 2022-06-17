@@ -15,7 +15,7 @@
       {%for job in jobs%}
       <tr>
         <td>{{job.job_title}}</td>
-        <td>{{job.company_name}}</td>
+        <td>{{job.company.employer.company_name}}</td>
         <td>{{job.location}}</td>
         <td>{{job.salary}}</td>
         <td>{{job.experience}}</td>
