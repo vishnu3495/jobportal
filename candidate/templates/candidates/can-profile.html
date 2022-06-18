@@ -3,7 +3,11 @@
 <div class="row">
     <div class="col-4"></div>
     <div class="col-4">
-        welcome user{{request.user}}
+        <form action=""method="post"enctype="multipart/form-data">
+            {%csrf_token%}
+            {{form.as_p}}
+            <input type="submit">
+        </form>
     </div>
     <div class="col-4"></div>
 </div>
