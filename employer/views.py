@@ -5,7 +5,8 @@ from employer.forms import JobForm,PasswordResetForm
 from employer.models import Jobs,CompanyProfile
 
 from employer.forms import SignUpForm,LoginForm,CompanyProfileForm
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
+from employer.models import User
 from django.contrib.auth import authenticate,login,logout
 
 
@@ -61,7 +62,7 @@ class SignUpView(CreateView):
     model = User
     form_class = SignUpForm
     template_name = "usersignup.html"
-    success_url = reverse_lazy("emp-alljobs")
+    success_url = reverse_lazy("signin")
 
 class SignInView(FormView):
     form_class = LoginForm
@@ -75,7 +76,10 @@ class SignInView(FormView):
              user=authenticate(request,username=uname,password=pwd)
              if user:
                  login(request,user)
-                 return redirect("emp-alljobs")
+                 if request.user.role=="employer":
+                    return redirect("emp-alljobs")
+                 elif request.user.role=="candidate":
+                     return redirect("cand-home")
              else:
                  return redirect(request,"login.html",{"form":form})
 
