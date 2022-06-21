@@ -1,0 +1,27 @@
+{%extends 'candidates/base.html'%}
+{%block body_block%}
+
+<div class="row">
+    {%for job in jobs%}
+    <div class="col-4">
+        <div class="card" style="width: 18rem;">
+  <img src="{{job.company.employer.logo.url}}" class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">{{job.job_title}}</h5>
+    <p class="card-text">{{job.company.employer.description}}</p>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">{{job.location}}</li>
+    <li class="list-group-item">{{job.salary}}</li>
+
+  </ul>
+  <div class="card-body">
+    <a href="{%url 'cand-detailjob' job.id%}" class="card-link">View more</a>
+
+  </div>
+</div>
+    </div>
+    {%endfor%}
+</div>
+
+{%endblock%}

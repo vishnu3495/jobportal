@@ -1,7 +1,8 @@
-{%extends 'base.html'%}
+{%extends 'candidates/base.html'%}
 {%block body_block%}
+
 <div class="row">
-    <div class="col-3"></div>
+   <div class="col-3"></div>
     <div class="col-6">
         <div class="card text-center">
   <div class="card-header">
@@ -13,6 +14,14 @@
      <p class="card-text">SALARY:{{job.salary}}</p>
       <p class="card-text">EXPERIENCE:{{job.experience}}</p>
   </div>
+
+            <div class="row">
+                <div class="col-4"></div>
+                <div class="col-4">
+                    <a href="{%url 'applynow' job.id%}"class="btn btn-outline-info">Apply Now</a>
+                </div>
+                <div class="col-4"></div>
+            </div>
   <div class="card-footer text-muted">
 
   </div>

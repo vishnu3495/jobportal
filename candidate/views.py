@@ -1,9 +1,10 @@
 from django.shortcuts import render,redirect
-from django.views.generic import TemplateView,CreateView,FormView
+from django.views.generic import TemplateView,CreateView,FormView,ListView,DetailView
 from  candidate.forms import CandidateProfileForm,CandidateProfileUpdateForm
 from candidate.models import CandidateProfile
 from django.urls import reverse_lazy
-from employer.models import User
+from employer.models import User,Jobs,Applications
+from django.contrib import messages
 
 class CandidateHomeView(TemplateView):
     template_name = "can-home.html"
@@ -16,6 +17,7 @@ class CandidateProfileView(CreateView):
 
     def form_valid(self, form):
         form.instance.user=self.request.user
+        messages.success(self.request,"your profile has been added")
         return super().form_valid(form)
 
 class CandidateProfileDetailView(TemplateView):
@@ -51,9 +53,33 @@ class CandidateProfileEditView(FormView):
             user.phone=phone
             user.email=email
             user.save()
+            messages.success(request,"your profile has been updated")
             return redirect("cand-home")
         else:
+            messages.error(request,"error while updating profile")
             return render(request,self.template_name,{"form":form})
 
+class CandidateJobListView(ListView):
+    model = Jobs
+    context_object_name = "jobs"
+    template_name = "candidates/joblist.html"
+
+    def get_queryset(self):
+        return self.model.objects.filter(active_status=True).order_by("-created_date")
 
 
+class CandidateJobDetailViews(DetailView):
+    model = Jobs
+    context_object_name = "job"
+    template_name = "candidates/jobdetail.html"
+    pk_url_kwarg = "id"
+
+def apply_now(request,*args,**kwargs):
+    user=request.user
+    job_id=kwargs.get("id")
+    job=Jobs.objects.get(id=job_id)
+    Applications.objects.create(applicant=user,
+                               job=job
+                                )
+    messages.success(request,"your application has been posted successfully")
+    return redirect("cand-home")

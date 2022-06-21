@@ -10,6 +10,10 @@ class JobForm(forms.ModelForm):
         widgets={
             "last_date":forms.DateInput(attrs={"class":"form-control","type":"date"})
         }
+        def clean(self):
+            cleaned_data=super().clean()
+            ldate=cleaned_data.get("last_date")
+
 
 
 class SignUpForm(UserCreationForm):
