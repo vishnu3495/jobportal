@@ -74,6 +74,14 @@ class CandidateJobDetailViews(DetailView):
     template_name = "candidates/jobdetail.html"
     pk_url_kwarg = "id"
 
+    def get_context_data(self,**kwargs):
+        context=super().get_context_data(**kwargs)
+        is_applied=Applications.objects.filter(applicant=self.request.user,job=self.object)
+        print(is_applied)
+        context["is_applied"]=is_applied
+        return context
+
+
 def apply_now(request,*args,**kwargs):
     user=request.user
     job_id=kwargs.get("id")
@@ -82,4 +90,21 @@ def apply_now(request,*args,**kwargs):
                                job=job
                                 )
     messages.success(request,"your application has been posted successfully")
+    return redirect("cand-home")
+
+
+class ApplicationListView(ListView):
+    model = Applications
+    template_name = "candidates/cand-myapplications.html"
+    context_object_name = "applications"
+
+    def get_queryset(self):
+        return Applications.objects.filter(applicant=self.request.user).exclude(status="cancelled")
+
+def cancel_application(request,*args,**kwargs):
+    app_id=kwargs.get("id")
+    application=Applications.objects.get(id=app_id)
+    application.status="cancelled"
+    application.save()
+    messages.success(request,"your application is cancelled")
     return redirect("cand-home")

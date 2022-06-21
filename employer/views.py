@@ -6,7 +6,7 @@ from employer.models import Jobs,CompanyProfile
 
 from employer.forms import SignUpForm,LoginForm,CompanyProfileForm
 # from django.contrib.auth.models import User
-from employer.models import User
+from employer.models import User,Applications
 from django.contrib.auth import authenticate,login,logout
 
 
@@ -130,4 +130,18 @@ class EmpProfileEditView(UpdateView):
     form_class = CompanyProfileForm
     template_name = "emp-editprofile.html"
     success_url = reverse_lazy("emp-viewprofile")
+    pk_url_kwarg = "id"
+
+class EmployeeListApplications(ListView):
+    model = Applications
+    context_object_name = "applications"
+    template_name = "empl-applist.html"
+
+    def get_queryset(self):
+        return Applications.objects.filter(job=self.kwargs.get("id")).exclude(status="cancelled")
+
+class EmployerApplicationDetailView(DetailView):
+    model = Applications
+    context_object_name = "application"
+    template_name = "emp-appdetail.html"
     pk_url_kwarg = "id"

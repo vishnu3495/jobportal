@@ -7,3 +7,4 @@ class CandidateProfile(models.Model):
     Qualification=models.CharField(max_length=120)
     skills=models.CharField(max_length=120)
     experience=models.PositiveIntegerField(default=0)
+
