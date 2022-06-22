@@ -17,16 +17,16 @@
 
             <div class="row">
                 <div class="col-4"></div>
-                {%if is_applied%}
+                    {%if is_applied%}
                 <div class="col-4">
                     <a href="" class="btn btn-outline-info mb-2">Applied</a>
                 </div>
                 {%else%}
                 <div class="col-4">
-                    <a href="{%url 'applynow' job.id%}"class="btn btn-outline-info mb-2">Apply Now</a>
+                    <a href="{%url 'applynow' job.id%}">Apply Now</a>
                 </div>
-                <div class="col-4"></div>
             </div>
+            {%endif%}
   <div class="card-footer text-muted">
 
   </div>
@@ -35,5 +35,5 @@
     <div class="col-3"></div>
 
 </div>
-{%endif%}
+
 {%endblock%}

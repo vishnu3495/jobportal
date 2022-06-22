@@ -8,8 +8,7 @@
   <img src="{{request.user.employer.logo.url}}" class="card-img-top" alt="No logo found">
   <div class="card-body">
     <h5 class="card-title">{{request.user.employer.company_name}}</h5>
-    <p class="card-text">Infosys Limited is an Indian multinational information technology company that provides business consulting, information technology and outsourcing services. The company was founded in Pune and is headquartered in Bangalore</p>
-  </div>
+    <p class="card-text">{{request.user.employer.description}}</p>
   <ul class="list-group list-group-flush">
     <li class="list-group-item">{{request.user.email}}</li>
     <li class="list-group-item">{{request.user.employer.company_name}}</li>

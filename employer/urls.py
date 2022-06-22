@@ -17,7 +17,5 @@ path("profile/add",views.CompanyProfileView.as_view(),name="emp-addprofile"),
 path("profile/detail",views.EmpViewProfileView.as_view(),name="emp-viewprofile"),
 path("profile/edit/<int:id>",views.EmpProfileEditView.as_view(),name="emp-editprofile"),
 path("applications/all/<int:id>",views.EmployeeListApplications.as_view(),name="emp-listapplications"),
-    path("applications/details/<int:id>",views.EmployerApplicationDetailView.as_view(),name="emp-detailapp")
-
-
+path("applications/details/<int:id>",views.EmployerApplicationDetailView.as_view(),name="emp-detailapp"),
 ]

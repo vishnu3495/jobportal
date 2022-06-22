@@ -8,6 +8,7 @@ from employer.forms import SignUpForm,LoginForm,CompanyProfileForm
 # from django.contrib.auth.models import User
 from employer.models import User,Applications
 from django.contrib.auth import authenticate,login,logout
+from django.contrib import messages
 
 
 class EmployerHomeView(TemplateView):
@@ -145,3 +146,7 @@ class EmployerApplicationDetailView(DetailView):
     context_object_name = "application"
     template_name = "emp-appdetail.html"
     pk_url_kwarg = "id"
+
+
+
+
