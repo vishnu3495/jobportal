@@ -1,9 +1,12 @@
 {%extends 'base.html' %}
 {%block body_block%}
 <div class="row">
-    <div class="col-4"></div>
     <div class="col-4">
-        <h5>Employer Home {{request.user}}</h5>
+        <h3>WELCOME HOME</h3>
+    </div>
+    <div class="col-4">
+
+        <img src="{{request.user.employer.logo.url}}" class="card-img-top" alt="No logo found">
     </div>
     <div class="col-4"></div>
 

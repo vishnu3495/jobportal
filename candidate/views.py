@@ -99,7 +99,9 @@ class ApplicationListView(ListView):
     context_object_name = "applications"
 
     def get_queryset(self):
-        return Applications.objects.filter(applicant=self.request.user)
+        return Applications.objects.filter(applicant=self.request.user).exclude(status="cancelled")
+
+
 
 def cancel_application(request,*args,**kwargs):
     app_id=kwargs.get("id")
@@ -108,3 +110,4 @@ def cancel_application(request,*args,**kwargs):
     application.save()
     messages.success(request,"your application is cancelled")
     return redirect("cand-home")
+

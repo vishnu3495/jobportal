@@ -6,7 +6,7 @@
 <div class="container">
     <div class="row">
         <div class="col-2"></div>
-        <div class="col-8">
+        <div class="col-12">
             <table class="table">
                 <tr>
                     <th>Applicantname</th>
@@ -16,7 +16,7 @@
                 </tr>
                 <tr>
                 {%for application in applications%}
-                <td>{{application.applicant.username}}</td>
+                <td>{{application.applicant.first_name}}</td>
                 <td>{{application.applicant.candidate.Qualification}}</td>
                 <td>{{application.date}}</td>
                 <td>{{application.job.job_title}}</td>
